@@ -504,6 +504,11 @@ function Yargs (processArgs, cwd, parentRequire) {
     return self
   }
 
+  self.getHelp = function () {
+    if (!self.parsed) parseArgs(processArgs) // run parser, if it has not already been executed.
+    return usage.getHelp();
+  }
+
   var versionOpt = null
   self.version = function (opt, msg, ver) {
     if (arguments.length === 0) {
@@ -568,7 +573,7 @@ function Yargs (processArgs, cwd, parentRequire) {
     return self
   }
 
-  var exitProcess = true
+  var exitProcess = false
   self.exitProcess = function (enabled) {
     if (typeof enabled !== 'boolean') {
       enabled = true
